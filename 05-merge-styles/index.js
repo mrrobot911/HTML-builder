@@ -3,16 +3,16 @@ const path = require('path');
 
 async function compareStyles() {
   let fileContent = '';
-  const entries = await fs.readdir(path.join(__dirname, 'styles'), {
-    withFileTypes: true,
-  });
+  const entries = await fs.readdir(path.join(__dirname, 'styles'));
   const outputPath = path.join(__dirname, 'project-dist', 'bundle.css');
 
   await Promise.all(
     entries.map(async (file) => {
-      const filePath = path.join(__dirname, 'styles', file.name);
-      const data = await fs.readFile(filePath, 'utf8');
-      fileContent += data + '\n';
+      const filePath = path.join(__dirname, 'styles', file);
+      if (file.split('.')[1] === 'css') {
+        const data = await fs.readFile(filePath, 'utf8');
+        fileContent += data + '\n';
+      }
     }),
   );
 
