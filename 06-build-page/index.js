@@ -7,6 +7,12 @@ const distDir = path.join(__dirname, 'project-dist');
 
 async function copyFolder(src, dest) {
   try {
+    await fs.access(dest);
+    await fs.rmdir(dest, { recursive: true });
+  } catch (err) {
+    console.error(`Error is: ${err}`);
+  }
+  try {
     const entries = await fs.readdir(src, { withFileTypes: true });
     await fs.mkdir(dest, { recursive: true });
     for (let entry of entries) {
