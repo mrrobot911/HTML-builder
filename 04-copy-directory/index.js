@@ -6,7 +6,7 @@ async function copyFolder(src, dest) {
     await fs.access(dest);
     await fs.rmdir(dest, { recursive: true });
   } catch (err) {
-    console.error(`Error is: ${err}`);
+    // Do nothing
   }
   try {
     const entries = await fs.readdir(src, { withFileTypes: true });
